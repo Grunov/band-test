@@ -1,9 +1,9 @@
-import UsersService from "@/services/users.service"
+import UsersService from "@/services/users.service";
 
 export default {
-    namespased: true,
+    namespaced: true,
     state: () => ({
-        user: null
+        user: null,
     }),
     mutations: {
         _setUser(state, payload) {
@@ -12,7 +12,6 @@ export default {
     },
     actions: {
         async fetchRandomUser({commit}) {
-            console.log('yo');
             try {
                 const response = await UsersService.getRandomUser();
                 commit('_setUser', response.data);

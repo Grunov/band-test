@@ -3,21 +3,28 @@
         <h2 class="random-beer__title">
             Пиво дня: 
         </h2>
-        <div class="random-beer__card">
-            <div class="random-beer__brand">
-                {{ beer.brand }}
+        <app-preloader 
+         v-if="requestStatus !== 'success'" 
+         class="random-beer__preloader"
+        />
+        <template v-if="requestStatus === 'success'">
+            <div class="random-beer__card">
+                <div class="random-beer__brand">
+                    {{ beer.brand }}
+                </div>
+                <div class="random-beer__name">
+                    {{ beer.name }}
+                </div>
             </div>
-            <div class="random-beer__name">
-                {{ beer.name }}
-            </div>
-        </div>
-        <button class="random-beer__random" @click="handler">
-            Посмотреть другое
-        </button>
+            <button class="random-beer__random" @click="handler">
+                Посмотреть другое
+            </button>
+        </template>
     </div>
 </template>
 
 <script>
+import AppPreloader from '@/components/AppPreloader.vue'
 
 export default {
     name: 'RandomBeer',
@@ -26,17 +33,33 @@ export default {
             type: Object,
             required: true
         },
+        requestStatus: {
+            type: String
+        },
         handler: {
             type: Function,
             required: true
         }
+    },
+    components: {
+        AppPreloader
     }
 }
 </script>
 
 <style lang="scss" scoped>
     .random-beer {
+        position: relative;
+        min-height: 250px;
         padding-bottom: 30px;
+        
+        &__preloader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
 
         &__brand {
             text-transform: uppercase;
