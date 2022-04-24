@@ -39,7 +39,6 @@ export default {
   },
   methods: {
     async userAvatarStatus(user) {
-      console.log(user.avatar);
       try {
         const response = await axios.get(user.avatar);
         if(response.status === 200) {
